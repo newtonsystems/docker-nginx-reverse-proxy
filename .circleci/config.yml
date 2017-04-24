@@ -16,13 +16,13 @@ jobs:
       - checkout
       - setup_remote_docker
 
-      - run: 
-        name: Build & Push to Docker Hub (branch and latest (sync'd to master)) 
-        command: |
-          docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker tag newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH newtonsystems/$DOCKER_PROJECT_NAME:latest
-              docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
-          fi
+      - run:
+          name: Build & Push to Docker Hub (branch and latest (sync'd to master)) 
+          command: |
+            docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                docker tag newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH newtonsystems/$DOCKER_PROJECT_NAME:latest
+                docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
+            fi
