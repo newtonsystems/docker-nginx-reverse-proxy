@@ -1,0 +1,31 @@
+#
+# Circle CI 2.0 Docs
+# 
+# For info, see: https://circleci.com/docs/2.0/
+#
+
+# This file contains all the builds for devops 
+# when something changes everything is rebuild and pushed.
+# Not ideal but hell ...
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:1.13.1-git
+        environment:
+          DOCKER_PROJECT_NAME: docker-nginx-reverse-proxy
+    working_directory: ~/docker-nginx-reverse-proxy
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      # Build and Push to Docker Hub (latest and circleci version'd) 
+      - run: |
+            PROJECT_VERSION=0.1
+            TAG=$PROJECT_VERSION.$CIRCLE_BUILD_NUM
+            docker build -t newtonsystems/$DOCKER_PROJECT_NAME ./tools/docker-grpc-tools
+            docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$TAG ./tools/docker-grpc-tools
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
+            docker push newtonsystems/$DOCKER_PROJECT_NAME:$TAG

@@ -1,0 +1,94 @@
+# Template for a Reverse Proxy
+upstream web_server {
+    server webserver:<%= ENV["WEB_SERVER_PORT"] %>;
+}
+
+server {
+    listen 80;
+    server_name _;
+    charset utf-8;
+
+    location ~ /\.well-known/acme-challenge {
+        root /usr/share/nginx/html;
+    }
+
+    <% if ENV["ENFORCE_HTTPS"] == 'TRUE' %>
+    location / {
+       return    301 https://$server_name$request_uri;
+    }
+    <% else %>
+    location / {
+        proxy_pass http://web_server;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    <% end %>
+
+    # redirect server error pages to the static page /40x.html
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+
+    # redirect server error pages to the static page /50x.html
+    error_page 500 502 503 504 /50x.html;
+        location = /usr/share/nginx/html/50x.html {
+    }
+
+}
+
+
+server {
+    listen       443 ssl http2 default_server;
+    listen       [::]:443 ssl http2 default_server;
+    server_name  _;
+    root         /usr/share/nginx/html;
+
+    # We use certbot to generate and replace these certs/key
+    #    
+    <% if https_enable == 'TRUE' %>
+    ssl_certificate /etc/letsencrypt/live/<%= ENV["DOMAIN_NAME"] %>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<%= ENV["DOMAIN_NAME"] %>/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:AES256+ECDHE';
+    <% if set_dhparam == 'TRUE' %>
+    ssl_dhparam "/etc/pki/nginx/dhparams.pem";
+    <% end %>
+    <% end %>
+
+    add_header Strict-Transport-Security "max-age=31536000";
+    ssl_session_cache shared:SSL:1m;
+    ssl_session_timeout  10m;
+
+    location ~ /\.well-known/acme-challenge {
+        root /usr/share/nginx/html;
+    }
+
+    location / {
+        proxy_pass http://web_server;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+
+        # This allows the ability for the execute shell window to remain open for up to 15 minutes. 
+        # Without this parameter, the default is 1 minute and will automatically close.
+        proxy_read_timeout 900s;
+    }
+
+    # redirect server error pages to the static page /40x.html
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+    
+    # redirect server error pages to the static page /50x.html                             
+    error_page 500 502 503 504 /50x.html;
+        location = /usr/share/nginx/html/50x.html {
+    }
+    
+}
+    
