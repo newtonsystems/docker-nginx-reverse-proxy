@@ -68,7 +68,8 @@ Example
 
 ## Future
 
-The Docker Image is rather large should do an alpine version.
+- The Docker Image is rather large should do an alpine version.
+- Support for multi backend servers. 
 
 ## User Feedback
 
