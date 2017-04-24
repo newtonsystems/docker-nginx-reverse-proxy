@@ -43,7 +43,7 @@ jobs:
               git config --global user.name "$GITHUB_USERNAME" > /dev/null 2>&1
               cd devops
               # Only Commit & Push if there are changes
-              if [[ `git status --porcelain python/` ]]; then
+              if [[ `git status --porcelain` ]]; then
                   git add -A
                   git commit --allow-empty -m "[ci skip] Updating submodule: Auto commit for `cd ~/docker-nginx-reverse-proxy && git log -1 --pretty=short --abbrev-commit`"
                   git push origin $CIRCLE_BRANCH
