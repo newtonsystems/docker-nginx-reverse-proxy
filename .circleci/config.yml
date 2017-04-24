@@ -17,9 +17,12 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Clone devops repo (we want to update git submodule)
+          name: Clone devops repo (Update the submodule to the latest change)
           command: |
             git clone -b $CIRCLE_BRANCH https://github.com/newtonsystems/devops.git
+            git submodule sync
+            git submodule update --init
+            git submodule foreach git pull origin $CIRCLE_BRANCH
 
       - run:
           name: Build & Push to Docker Hub (branch and latest (sync'd to master)) 
@@ -32,17 +35,17 @@ jobs:
                 docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
             fi
 
-      # - deploy:
-      #     name: Deploy python package to devpi 
-      #     command: |
-      #         # NOTE: At the moment even no changes are packaged up into
-      #         #       a new python devpi package
-      #         git config --global user.email "$GITHUB_EMAIL" > /dev/null 2>&1
-      #         git config --global user.name "$GITHUB_USERNAME" > /dev/null 2>&1
-      #         cd devops
-      #         # Only Commit & Push if there are changes
-      #         if [[ `git status --porcelain python/` ]]; then
-      #             git add -A python/
-      #             git commit --allow-empty -m "[ci skip] Updating submodule: Auto commit for `cd protos && git log -1 --pretty=short --abbrev-commit`"
-      #             git push origin $CIRCLE_BRANCH
-      #         fi
+      - deploy:
+          name: Deploy python package to devpi 
+          command: |
+              # NOTE: At the moment even no changes are packaged up into
+              #       a new python devpi package
+              git config --global user.email "$GITHUB_EMAIL" > /dev/null 2>&1
+              git config --global user.name "$GITHUB_USERNAME" > /dev/null 2>&1
+              cd devops
+              # Only Commit & Push if there are changes
+              if [[ `git status --porcelain python/` ]]; then
+                  git add -A
+                  git commit --allow-empty -m "[ci skip] Updating submodule: Auto commit for `cd protos && git log -1 --pretty=short --abbrev-commit`"
+                  git push origin $CIRCLE_BRANCH
+              fi
