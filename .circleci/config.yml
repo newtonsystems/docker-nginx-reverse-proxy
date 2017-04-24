@@ -18,7 +18,7 @@ jobs:
 
       # Build and Push to Docker Hub (branch and latest (sync'd to master)) 
       - run: |
-          docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH ./tools/docker-grpc-tools
+          docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
