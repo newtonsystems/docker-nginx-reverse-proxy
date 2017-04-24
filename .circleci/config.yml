@@ -4,10 +4,6 @@
 # For info, see: https://circleci.com/docs/2.0/
 #
 
-# This file contains all the builds for devops 
-# when something changes everything is rebuild and pushed.
-# Not ideal but hell ...
-
 version: 2
 jobs:
   build:
@@ -20,12 +16,12 @@ jobs:
       - checkout
       - setup_remote_docker
 
-      # Build and Push to Docker Hub (latest and circleci version'd) 
+      # Build and Push to Docker Hub (branch and latest (sync'd to master)) 
       - run: |
-            PROJECT_VERSION=0.1
-            TAG=$PROJECT_VERSION.$CIRCLE_BUILD_NUM
-            docker build -t newtonsystems/$DOCKER_PROJECT_NAME ./tools/docker-grpc-tools
-            docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$TAG ./tools/docker-grpc-tools
+            docker build -t newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH ./tools/docker-grpc-tools
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
-            docker push newtonsystems/$DOCKER_PROJECT_NAME:$TAG
+            docker push newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                docker tag newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH newtonsystems/$DOCKER_PROJECT_NAME:latest
+                docker push newtonsystems/$DOCKER_PROJECT_NAME:latest
+            fi
