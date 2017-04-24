@@ -58,7 +58,7 @@ Example
 	docker run --restart=unless-stopped 
 		--link rancher-server:webserver 
 		-p 80:80 -p 443:443 
-		- VOLUME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 		--env ENFORCE_HTTPS=TRUE 
 		--env DOMAIN_NAME=rancher.tetherboxapp.com 
 		--env MATTERMOST_WEBHOOK_URL=http://mattermost.example.com:8065/hooks/aj8agnqi6fbhjm165u8297th3a 
