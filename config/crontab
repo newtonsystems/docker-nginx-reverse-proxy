@@ -1,2 +1,2 @@
-# if successful add a cron twice a day randomly
-* * * * * . /etc/environment; /app/config/update_certs.sh >> /app/logs/renewal.log 2>&1
+# if successful add a cron twice a day
+7 */12 * * * . /etc/environment; /app/config/update_certs.sh >> /app/logs/renewal.log 2>&1
