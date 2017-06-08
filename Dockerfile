@@ -88,5 +88,4 @@ RUN ln -sf $APP_DIR/logs /var/log/app
 EXPOSE 80 443
 
 # Must pass all docker environment variables to Supervisor
-CMD env | grep _ >> /etc/environment 
-CMD ["/usr/bin/supervisord"]
+CMD env | grep _ >> /etc/environment && /usr/bin/supervisord
