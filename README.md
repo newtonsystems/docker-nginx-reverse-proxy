@@ -58,7 +58,9 @@ Example
 	docker run --restart=unless-stopped 
 		--link rancher-server:webserver 
 		-p 80:80 -p 443:443 
-
+		-v /vol/nginx-rev-proxy/letsencrypt:/etc/letsencrypt 
+		-v /vol/nginx-rev-proxy/pki:/etc/pki/nginx 
+		-v /vol/nginx-rev-proxy/logs/app:/var/log/app
 		--env ENFORCE_HTTPS=TRUE 
 		--env DOMAIN_NAME=rancher.tetherboxapp.com 
 		--env MATTERMOST_WEBHOOK_URL=http://mattermost.example.com:8065/hooks/aj8agnqi6fbhjm165u8297th3a 
