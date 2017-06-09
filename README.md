@@ -1,5 +1,18 @@
 # A Dockerized NGINX Reverse Proxy
 
+[![](https://images.microbadger.com/badges/image/newtonsystems/docker-nginx-reverse-proxy.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy "Get your own image badge on microbadger.com")
+
+[![](https://images.microbadger.com/badges/version/newtonsystems/docker-nginx-reverse-proxy.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy "Get your own version badge on microbadger.com")
+
+Available from docker hub as [newtonsystems/tools/docker-grpc-tools](https://hub.docker.com/r/newtonsystems/docker-nginx-reverse-proxy/)
+
+#### Supported tags and respective `Dockerfile` links
+
+-    [`v0.1.0`, `latest` (/Dockerfile*)](https://github.com/newtonsystems/docker-nginx-reverse-proxy/blob/master/Dockerfile)
+
+
+# What is docker-nginx-reverse-proxy?
+
 - Reverse Proxy using NGINX
 - HTTPs support via (letsencrypt/certbot)
 - Automatic cert renewal via (letsencrypt/certbot)
@@ -60,12 +73,12 @@ Example
 		-p 80:80 -p 443:443 
 		-v /vol/nginx-rev-proxy/letsencrypt:/etc/letsencrypt 
 		-v /vol/nginx-rev-proxy/pki:/etc/pki/nginx 
-		-v /vol/nginx-rev-proxy/logs/app:/var/log/app
+		-v /vol/nginx-rev-proxy/logs/app:/var/log/app 
 		--env ENFORCE_HTTPS=TRUE 
-		--env DOMAIN_NAME=rancher.tetherboxapp.com 
-		--env MATTERMOST_WEBHOOK_URL=http://mattermost.example.com:8065/hooks/aj8agnqi6fbhjm165u8297th3a 
+		--env DOMAIN_NAME=rancher.newtonsystems.co.uk 
+		--env MATTERMOST_WEBHOOK_URL=https://mattermost.newtonsystems.co.uk/hooks/9eypzzfrrjy9dyptf6s6otchie 
 		-d 
-		docker-nginx-reverse-proxy:latest
+		docker-nginx-reverse-proxy:0.1.0
 ```
 
 ## How to do a release
