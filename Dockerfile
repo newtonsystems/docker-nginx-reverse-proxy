@@ -16,6 +16,8 @@ ENV DOMAIN_NAME example.com
 ENV APP_DIR /app
 # Email for letsencrypt
 ENV EMAIL_ADMIN james.tarball@newtonsystems.co.uk
+# Use environment variables instead of link name
+ENV USE_ENVS_FOR_WEBSERVER FALSE
 # Port for the Web Server
 ENV WEB_SERVER_PORT 8080
 # Enforce http to redirect to https
