@@ -68,6 +68,18 @@ Example
 		docker-nginx-reverse-proxy:latest
 ```
 
+## How to do a release
+- Make sure you are using docker-utils 
+i.e.
+
+```bash
+export PATH="~/<LOCATION>/docker-utils/bin:$PATH"
+```
+
+```
+build-tag-push-dockerfile.py  --image "newtonsystems/docker-nginx-reverse-proxy" --version 0.1.0 --dockerhub_release --github_release
+```
+
 ## Future
 
 - The Docker Image is rather large should do an alpine version.
