@@ -4,7 +4,7 @@
 
 [![](https://images.microbadger.com/badges/version/newtonsystems/docker-nginx-reverse-proxy.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy "Get your own version badge on microbadger.com")
 
-Available from docker hub as [newtonsystems/tools/docker-grpc-tools](https://hub.docker.com/r/newtonsystems/docker-nginx-reverse-proxy/)
+Available from docker hub as [newtonsystems/docker-nginx-reverse-proxy](https://hub.docker.com/r/newtonsystems/docker-nginx-reverse-proxy/)
 
 #### Supported tags and respective `Dockerfile` links
 
