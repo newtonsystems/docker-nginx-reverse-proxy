@@ -1,7 +1,7 @@
 # Template for a Reverse Proxy
 upstream web_server {
     <% if ENV["USE_ENVS_FOR_WEBSERVER"] == 'TRUE' %>
-    server <%= ENV["WEBSERVER_PORT_80_TCP_ADDR"] %>:<%= ENV["WEBSERVER_PORT_80_TCP_PORT"] %>;
+    server <%= ENV["WEBSERVER_PORT_80_TCP_ADDR"] %>:<%= ENV["WEB_SERVER_PORT"] %>;
     <% else %>
     server webserver:<%= ENV["WEB_SERVER_PORT"] %>;
     <% end %>
