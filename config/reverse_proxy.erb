@@ -1,7 +1,7 @@
 # Template for a Reverse Proxy
 upstream web_server {
     <% if ENV["USE_ENVS_FOR_WEBSERVER"] == 'TRUE' %>
-    server <%= ENV["WEBSERVER_PORT_80_TCP_ADDR"] %>:<%= ENV["WEB_SERVER_PORT"] %>;
+    server <%= ENV["WEBSERVER_PORT_80_TCP_ADDR"] %>:<%= ENV["WEBSERVER_PORT_80_TCP_PORT"] %>;
     <% else %>
     server webserver:<%= ENV["WEB_SERVER_PORT"] %>;
     <% end %>
@@ -12,6 +12,8 @@ server {
     listen 80;
     server_name _;
     charset utf-8;
+
+    client_max_body_size 102400M;
 
     location ~ /\.well-known/acme-challenge {
         root /usr/share/nginx/html;
@@ -25,6 +27,7 @@ server {
     location / {
         proxy_pass http://web_server;
         proxy_set_header Host $host;
+        #proxy_set_header X-outside-url $scheme://$host:$server_port;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
@@ -65,6 +68,8 @@ server {
     add_header Strict-Transport-Security "max-age=31536000";
     ssl_session_cache shared:SSL:1m;
     ssl_session_timeout  10m;
+
+    client_max_body_size 102400M;
 
     location ~ /\.well-known/acme-challenge {
         root /usr/share/nginx/html;
