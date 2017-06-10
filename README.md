@@ -1,14 +1,14 @@
 # A Dockerized NGINX Reverse Proxy
 
-[![](https://images.microbadger.com/badges/image/newtonsystems/docker-nginx-reverse-proxy.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/newtonsystems/docker-nginx-reverse-proxy:0.1.1.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy:0.1.1 "Get your own image badge on microbadger.com")
 
-[![](https://images.microbadger.com/badges/version/newtonsystems/docker-nginx-reverse-proxy.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/newtonsystems/docker-nginx-reverse-proxy:0.1.1.svg)](https://microbadger.com/images/newtonsystems/docker-nginx-reverse-proxy:0.1.1 "Get your own version badge on microbadger.com")
 
 Available from docker hub as [newtonsystems/docker-nginx-reverse-proxy](https://hub.docker.com/r/newtonsystems/docker-nginx-reverse-proxy/)
 
 #### Supported tags and respective `Dockerfile` links
 
--    [`v0.1.0`, `latest` (/Dockerfile*)](https://github.com/newtonsystems/docker-nginx-reverse-proxy/blob/master/Dockerfile)
+-    [`v0.1.1`, `v0.1.0`, `latest` (/Dockerfile*)](https://github.com/newtonsystems/docker-nginx-reverse-proxy/blob/master/Dockerfile)
 
 
 # What is docker-nginx-reverse-proxy?
