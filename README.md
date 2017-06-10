@@ -78,7 +78,7 @@ Example
 		--env DOMAIN_NAME=rancher.newtonsystems.co.uk 
 		--env MATTERMOST_WEBHOOK_URL=https://mattermost.newtonsystems.co.uk/hooks/9eypzzfrrjy9dyptf6s6otchie 
 		-d 
-		docker-nginx-reverse-proxy:0.1.0
+		docker-nginx-reverse-proxy:0.1.1
 ```
 
 ## How to do a release
